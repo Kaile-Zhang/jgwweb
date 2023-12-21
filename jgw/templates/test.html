@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>甲骨文工具</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>甲骨文工具</h1>
+
+    <!-- 甲骨文查询按钮 -->
+    <button onclick="redirectTo('query.html')">甲骨文查询</button>
+
+    <!-- 部首匹配按钮 -->
+    <button onclick="redirectTo('radical.html')">部首匹配</button>
+
+    <!-- 演变分析按钮 -->
+    <button onclick="redirectTo('evolution.html')">演变分析</button>
+
+    <!-- 可视化按钮 -->
+    <button onclick="redirectTo('visualization.html')">可视化</button>
+
+    <script>
+        // JavaScript函数，用于重定向到指定的页面
+        function redirectTo(page) {
+            window.location.href = page;
+        }
+    </script>
+</body>
+</html>
