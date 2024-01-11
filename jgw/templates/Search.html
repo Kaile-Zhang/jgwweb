@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <!-- 引入Bootstrap样式表 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light pt-3 pb-3 pl-4 pr-4">
+        <a class="navbar-brand" href="#">Search</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item pl-2">
+                    <a class="nav-link" href="../../">Home</a>
+                </li>
+                <li class="nav-item pl-2">
+                    <a class="nav-link" href="../../radicals">Radical</a>
+                </li>
+                <li class="nav-item pl-2">
+                    <a class="nav-link" href="../../evolution">Evolution</a>
+                </li>
+                <li class="nav-item pl-2">
+                    <a class="nav-link" href="#">Pictographic</a>
+                </li>
+                <li class="nav-item active pl-2">
+                    <a class="nav-link" href="#">Search</a>
+                </li>
+                <li class="nav-item pl-2">
+                    <a class="nav-link" href="#">Recognition</a>
+                </li>
+                <li class="nav-item pl-2">
+                    <a class="nav-link" href="#">Veroeros</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- 搜索栏 -->
+    <div class="container mt-4 pt-4 pb-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <!-- 搜索框 -->
+                <div class="input-group">
+                    <input id="input" type="text" class="form-control" placeholder="Search..." 
+                    onkeydown="if(event.keyCode==13) {test()}" aria-label="Search" aria-describedby="search">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="search">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container mt-4">
+        {% if flag %}
+        <h1 class="pb-2 mb-3">以下为“{{ word }}”的搜索结果</h1>
+        {% else %}
+        <h1 class="pb-2 mb-3">暂未找到相关结果</h1>
+        {% endif %}
+    </div>
+    
+    {% if flag %}
+    <!-- 图片展示区域 -->
+    {% for key, value in imgs.items %}
+    <div class="container mt-4">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h3>{{ key }}</h3>
+            </div>
+            {% if value %}
+            <div class="col-md-6 text-right">
+                <button class="btn btn-outline-secondary"  type="button" data-toggle="collapse" data-target="#{{ key }}">展开/收起</button>
+            </div>
+            {% else %}
+            <div class="col-md-6 text-right">
+                <h3>暂无相关内容</h3>
+            </div>
+            {% endif %}
+        </div>
+        <hr class="mb-2 mt-1">
+        
+        <div class="collapse show" id="{{ key }}">
+            <div class="row pl-4">
+                <!-- 图片1 -->
+                {% for i in value %}
+                <div class="mt-2 mb-2 pt-2 pb-2 col-md-2 border text-center">
+                    <img src="{{ i }}" alt="Image 1" class="img-fluid" style="height: 120px">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="container pt-4 pb-4">
+    </div>
+    <!-- 引入Bootstrap的JavaScript库（Popper.js和jQuery） -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('#search').click(function(){
+                var word = document.getElementById("input")
+                window.location.href = './?q='+word.value;
+            });
+        });
+    </script>
+    <script>	
+        function test() {
+            if (window.event.keyCode == 13) {
+                var word = document.getElementById("input")
+                window.location.href = './?q='+word.value;
+            }
+        }
+    </script>
+</body>
+</html>

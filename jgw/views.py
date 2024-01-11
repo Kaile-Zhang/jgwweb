@@ -1,18 +1,41 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
+import os, json
 
+def query(word):
+    with open(os.path.join(os.getcwd(), 'jgw', 'static', 'Chars.json'), 'r', encoding='utf-8') as f:
+        chars = json.loads(f.read())
+    if word in chars:
+        flag = True
+        with open(os.path.join(os.getcwd(), 'jgw', 'static', 'EVOBC.json'), 'r', encoding='utf-8') as f:
+            data = json.loads(f.read())
+        for i in data:
+            if i["character"] == word:
+                images = i["images"]
+        
+        imgs = {}
+        eras = ['甲骨文', '金文', '篆文', '春秋', '战国', '隶书']
+        for i in eras:
+            imgs[i] = []
+        for image in images:
+            imgs[eras[image["era"]]].append(f"http://27.18.7.167:7680/img/{word}/{image['file']}")
+    else:
+        flag = False
+        imgs = {}
+    
+    return flag, imgs
 
 # Create your views here.
 def index(request):
-    return render(request, 'test.html')
+    return render(request, 'index.html')
 
-def query(request):
-    return HttpResponse("甲骨文查询")
-
-def radical(request):
-    return HttpResponse("部首匹配")
+def Search(request):
+    word = request.GET.get('q')
+    flag, imgs = query(word)
+    dic = {'word': word,
+           'flag': flag,
+           'imgs': imgs,}
+    # print(imgs)
+    return render(request, 'Search.html', dic)
 
 def evolution(request):
-    return HttpResponse("演变分析")
-
-def visualization(request):
     return HttpResponse("可视化")
