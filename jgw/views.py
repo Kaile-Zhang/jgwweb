@@ -26,7 +26,15 @@ def query(word):
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
+    if request.method=='GET':
+        return render(request, 'index.html', {'flag': False})
+    else:
+        name = request.POST.get('name','')
+        email = request.POST.get('email','')
+        message = request.POST.get('message','')
+        with open(os.path.join(os.getcwd(), 'jgw', 'static', 'messages.txt'), "a") as file:
+            file.write(name+','+email+','+message+'\n')
+        return render(request, 'index.html', {'flag': True})
 
 def Search(request):
     word = request.GET.get('q')

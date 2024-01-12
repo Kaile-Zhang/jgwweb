@@ -41,11 +41,11 @@
 						<ul>
 							<li><a href="">Home</a></li>
 							<li><a href="../radicals">Radical</a></li>
-							<li><a href="../evolution">Evolution</a></li>
-							<li><a href="../evolution">Pictographic</a></li>
-							<li><a href="./search/">Dataset</a></li>
-							<li><a href="../evolution">Oracle recognition</a></li>
-							<li><a href="../evolution">Veroeros</a></li>
+							<li><a href="../EV">Evolution</a></li>
+							<li><a href="#">Pictographic</a></li>
+							<li><a href="./search/?q=首">Dataset</a></li>
+							<li><a href="#">Oracle recognition</a></li>
+							<li><a href="../font">Veroeros</a></li>
 						</ul>
 					</nav>
 
@@ -54,7 +54,7 @@
 						<div class="inner">
 							<header>
 								<h1>Assist in deciphering oracle bones,<br />
-									created by team of  <a href="https://github.com/RomanticGodVAN/Oracle-deciphering">HUST</a>.</h1>
+									created by VLRLab of  <a href="https://github.com/RomanticGodVAN/Oracle-deciphering">HUST</a>.</h1>
 								<p>This website is mainly used for oracle identification, oracle aid decipherment, and to provide information about oracle datasets.</p>
 							</header>
 							<section class="tiles">
@@ -73,7 +73,7 @@
 									<span class="image">
 										<img src="static/images/pic02.jpg" alt="" />
 									</span>
-									<a href="../evolution/">
+									<a href="../EV/">
 										<h2>Evolution</h2>
 										<div class="content">
 											<p>演变预测：由甲骨文图像生成汉字图像，并识别预测对应汉字</p>
@@ -84,7 +84,7 @@
 									<span class="image">
 										<img src="static/images/pic03.jpg" alt="" />
 									</span>
-									<a href="../evolution/">
+									<a href="#">
 										<h2>Pictographic</h2>
 										<div class="content">
 											<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.</p>
@@ -95,7 +95,7 @@
 									<span class="image">
 										<img src="static/images/pic04.jpg" alt="" />
 									</span>
-									<a href="./search/">
+									<a href="./search/?q=首">
 										<h2>Dataset</h2>
 										<div class="content">
 											<p>数据搜索：输入汉字，在数据集中搜索不同时期的文字图像</p>
@@ -106,7 +106,7 @@
 									<span class="image">
 										<img src="static/images/pic05.jpg" alt="" />
 									</span>
-									<a href="../evolution/">
+									<a href="#">
 										<h2>Oracle recognition</h2>
 										<div class="content">
 											<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.</p>
@@ -117,10 +117,10 @@
 									<span class="image">
 										<img src="static/images/pic06.jpg" alt="" />
 									</span>
-									<a href="../evolution/">
+									<a href="../font/">
 										<h2>Veroeros</h2>
 										<div class="content">
-											<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.</p>
+											<p>风格迁移：上传甲骨文图像，指定字体风格，生成对应风格的甲骨文</p>
 										</div>
 									</a>
 								</article>
@@ -133,7 +133,8 @@
 						<div class="inner">
 							<section>
 								<h2>Get in touch</h2>
-								<form action="#">
+								<form method="post">
+									{% csrf_token %}
 									<div class="fields">
 										<div class="field half">
 											<input type="text" name="name" id="name" placeholder="Name" />
@@ -146,7 +147,11 @@
 										</div>
 									</div>
 									<ul class="actions">
-										<li><input type="submit" value="Send" class="primary" /></li>
+										{% if flag %}
+										<li><input type="submit" value="Send" class="primary" disabled="{{ flag }}"/></li>
+										{% else %}
+										<li><input type="submit" value="Send" class="primary"/></li>
+										{% endif %}
 									</ul>
 								</form>
 							</section>
